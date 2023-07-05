@@ -1,3 +1,4 @@
+import json
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -12,13 +13,25 @@ options = Options()
 options.add_argument("--headless")
 options.add_argument("window-size=1920,1080")
 
-item = input("Which item are you looking for? ")
+
 # preco = int(input("What is the maximum value you'd pay in Platinum? "))
 
 url = "https://warframe.market/items/"
 
 driver = webdriver.Chrome(options=options)
-driver.get(url + item)
+
+
+with (
+    "cleaned-data.json",
+    "r+",
+) as file:
+    item = [file]
+
+    for object in item:
+        driver.get(url + object["url_name"])
+
+
+# driver.get(url + item)
 
 valor = driver.find_element(
     "xpath", '//*[@id="panel"]/section[2]/div[2]/div[2]/div/div[3]/div[1]/input'
